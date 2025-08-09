@@ -20,3 +20,5 @@ Note: all following instructions are designed for Linux systems, if you are usin
  
 ## Licence
 This project is licensed under the GPL License - see the [LICENCE](LICENCE.txt) file for details.
+
+<img width="634" height="213" alt="image" src="https://github.com/user-attachments/assets/ce2878ab-4281-4669-85af-608dea51ffff" />

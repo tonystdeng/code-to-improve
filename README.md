@@ -17,7 +17,3 @@ It is meant for a tool to help you improve your working habit by learning more a
 - Then just follow the instructions XD
 
 <img width="634" height="213" alt="image" src="https://github.com/user-attachments/assets/ce2878ab-4281-4669-85af-608dea51ffff" />
-
-## Licence
-
-This project is licensed under the GPL License - see the [LICENCE](LICENCE.txt) file for details.

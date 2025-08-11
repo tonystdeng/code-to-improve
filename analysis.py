@@ -69,7 +69,7 @@ def analysisHabit(keyList, dividedActionList, aafa):
 
 def analysisStops(keyList, dividedActionList, aafa):
     # perpare returning data and analysis data
-    shortestStop = 15
+    shortestStop = 8
     active = []
     stops = []
     lastEnd = keyList[0][1]
@@ -94,6 +94,14 @@ def analysisStops(keyList, dividedActionList, aafa):
     stopTotle = 0
     for i in stops:
         stopTotle += i[2]
+
+    # avoid error
+    if len(stops) == 0:
+        print("You don't have any stop sessions in your keyboard log.")
+        return -1
+    elif len(active) == 0:
+        print("You don't have any active sessions in your keyboard log.")
+        return -1
 
     return active, stops, activeTotle, stopTotle
 

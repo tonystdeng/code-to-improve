@@ -24,7 +24,7 @@ while True:
 Options:
  - q: quit
  - aa: analysis with all avalible data
- - a <json file name> analysis with data from one session
+ - a <json file name>: analysis with data from one session
  - enter: record new
 
 > """).strip().lower()
@@ -37,6 +37,12 @@ Options:
         startTime = datetime.datetime.now().strftime("%y%d%m%H%M%S")
         print("we started recording your keyboard activities! good luck on your work and press esc to exit!")
         keyList = listener.listen()
+
+        # no error
+        if len(keyList) < 10:
+            print("The data recorded was too small as we recieved less than 10 inputs.")
+            print("Please record for a longer session.")
+            continue
 
         # save everything
         endTime = datetime.datetime.now().strftime("%y%d%m%H%M%S")
@@ -63,6 +69,7 @@ Options:
         fileNum = 0
 
         # loop through files
+        continuing = False
         for fileName in os.listdir(settings["path"]):
             try:
                 keyList = json.load(open(settings["path"]+"/"+fileName))
@@ -86,12 +93,19 @@ Options:
                         actionStatistics[actionKey][dataKey] += actionStatistics_[actionKey][dataKey]
 
             # analysis then merged stops
-            actives_, stops_, activeTotle_, stopTotle_ = analysis.analysisStops(keyList, dividedActionList, aafa)
+            AandS = analysis.analysisStops(keyList, dividedActionList, aafa)
+            if AandS == -1:
+                print("Please record for a longer session.")
+                continuing = True
+                break
+            actives_, stops_, activeTotle_, stopTotle_ = AandS
             actives.extend(actives_)
             stops.extend(stops_)
             activeTotle += activeTotle_
             stopTotle += stopTotle_
 
+        if continuing:
+            continue
         # normalize staticstics to average
         for actionKey in actionStatistics:
             actionStatistics[actionKey]["timePercentage"] /= fileNum
@@ -112,7 +126,11 @@ Options:
         # analysis
         dividedActionList, aafa = analysis.divideData(keyList)
         actionStatistics = analysis.analysisHabit(keyList, dividedActionList, aafa)
-        actives, stops, activeTotle, stopTotle = analysis.analysisStops(keyList, dividedActionList, aafa)
+        AandS = analysis.analysisStops(keyList, dividedActionList, aafa)
+        if AandS == -1:
+                print("Please record for a longer session.")
+                continue
+        actives, stops, activeTotle, stopTotle = AandS
         explain.explainAnalysis(actionStatistics, actives, stops, activeTotle, stopTotle, timeline=list(zip(*keyList))[1])
 
     #nothing happens

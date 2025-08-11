@@ -69,7 +69,7 @@ def timelineBarGraph(numbers):
 
 # explain XD
 def explainAnalysis(actionStatistics, active, stops, activeTotle, stopTotle, timeline = None):
-    print("\n\nHere is the analysis of all your working habit through your keyboard activities we ever recorded.")
+    print("\n\nHere is the analysis of all your working habit:")
     print("You:")
     print(f"Switches Tab once every {actionStatistics["switchTab"]["onceInAWhile"]} seconds in average")
     print(f"Copies stuff once every {actionStatistics["copy"]["onceInAWhile"]} seconds in average")
